@@ -2,18 +2,79 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/AppSlice";
 
-const Header = () => {
+import { cacheResults } from "../utils/searchSlice";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+
+import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
+
+
+const Header = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
+  const handleSignOut = () => {
+   props.onLogout()
+  };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+       if (user) {
+         const { uid, email, displayName, photoURL } = user;
+         dispatch(
+           addUser({
+             uid: uid,
+             email: email,
+             displayName: displayName,
+             photoURL: photoURL,
+           })
+         );
+         navigate("/");
+       } else {
+         dispatch(removeUser());
+         navigate("/");
+       }
+     });
+ 
+     // Unsiubscribe when component unmounts
+     
+   }, []);
+ 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      
+        getSearchSugsestions();
+      
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
+  const getSearchSugsestions = async () => {
+    let YOUTUBE_SEARCH=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&key=AIzaSyBN_nyDRweiY70cxGiNKW6UGt6ALRkPEsk`
+    const data=await fetch(YOUTUBE_SEARCH)
+    const json = await data.json();
+   
+    setSuggestions(json.items);
 
 
+    dispatch(
+      cacheResults({
+        [searchQuery]: json.items,
+      })
+    );
+  };
+    
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
 
+  console.log(suggestions,"su")
   return (
     <div className="grid grid-flow-col p-5 m-2 shadow-lg">
       <div className="flex col-span-1">
@@ -27,7 +88,7 @@ const Header = () => {
           <img
             className="h-8 mx-2"
             alt="youtube-logo"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+            src="https://w7.pngwing.com/pngs/147/745/png-transparent-video-production-freemake-video-er-video-icon-free-angle-text-rectangle-thumbnail.png"
           />
         </a>
       </div>
@@ -46,23 +107,26 @@ const Header = () => {
           </button>
         </div>
         {showSuggestions && (
-          <div className="fixed bg-white py-2 px-2 w-[37rem] shadow-lg rounded-lg border border-gray-100">
-            <ul>
-              {suggestions.map((s) => (
-                <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
-                  🔍 {s}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+  <div className="fixed bg-white py-2 px-2 w-[37rem] shadow-lg rounded-lg border border-gray-100">
+    <ul>
+      {suggestions?.map((suggestion) => (
+        <li key={suggestion.id.videoId} className="py-2 px-3 shadow-sm hover:bg-gray-100">
+          🔍 {suggestion.snippet.title}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
       </div>
-      <div className="col-span-1">
+      <div className="col-span-1 flex">
         <img
           className="h-8"
           alt="user"
           src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
         />
+        <button onClick={handleSignOut} className="font-bold text-black -mt-4 ">
+            (Sign Out)
+          </button>
       </div>
     </div>
   );

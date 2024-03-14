@@ -1,0 +1,33 @@
+
+.close
+{
+    display: none;
+}
+/* Media query for mobile devices */
+@media (max-width: 786px) {
+   
+    .close
+{
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 20px
+}
+    .open {
+        position: fixed;
+        top: 0;
+        left: 0; /* Sidebar initially hidden off the screen */
+        width: 80vw !important;
+        height: 100%;
+        background-color: #fff; /* Set sidebar background color */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+        transition: right 0.3s ease; /* Add transition effect */
+        z-index: 1000; /* Ensure sidebar is above other content */
+        display: block; /* Initially hide sidebar */
+      }
+      
+      
+ 
+}
+
+  
