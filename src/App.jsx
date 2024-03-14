@@ -10,16 +10,41 @@ import Sidebar from './components/Sidebar'
 function App() {
   const [count, setCount] = useState(0)
 
+
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Body />,
+      children: [
+        {
+          path: "/",
+          element: <MainContainer />,
+        },
+        {
+          path: "watch",
+          element: <WatchPage />,
+        },
+        {
+          path: "demo",
+          element: (
+            <>
+              <Demo />
+              <Demo2 />
+            </>
+          ),
+        },
+      ],
+    },
+  ]);
   return (
     <>
     <Provider store={store}>
-      <Header></Header>
-      <Sidebar></Sidebar>
-    <h1 className="text-3xl font-bold underline">
+    <div>
+     
+        <RouterProvider router={appRouter} />
 
-      Hello world!
-    </h1>
-
+        
+      </div>
     </Provider>
 
 
