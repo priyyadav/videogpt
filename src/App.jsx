@@ -30,6 +30,7 @@ const appRouter = createBrowserRouter([
 
 function App() {
   const [user, setUser] = useState(null);
+  const [Loading, setLoading]=useState(true)
   
 
   useEffect(() => {
@@ -48,11 +49,17 @@ function App() {
   const handleLogout = () => {
     signOut(auth);
   };
-
+  if (Loading) {
+    return (
+      <div style={{display:"flex", color:"blue", fontSize:"68px", justifyContent:"center", alignItems:"center", height:"100%"}}>
+        <h1 >Welcome to Video Live Chat</h1>
+      </div>
+    );
+  }
 
   return (
     <Provider store={store}>
-      <div>
+      <div> 
         {user ? (
           <>
             <Header onLogout={handleLogout} />

@@ -38,6 +38,7 @@ const Header = (props) => {
          navigate("/");
        }
      });
+     console.log("kok")
  
      // Unsiubscribe when component unmounts
      
@@ -49,6 +50,7 @@ const Header = (props) => {
         getSearchSugsestions();
       
     }, 200);
+    console.log("kokkkk")
 
     return () => {
       clearTimeout(timer);
@@ -56,7 +58,7 @@ const Header = (props) => {
   }, [searchQuery]);
 
   const getSearchSugsestions = async () => {
-    let YOUTUBE_SEARCH=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&key=AIzaSyBN_nyDRweiY70cxGiNKW6UGt6ALRkPEsk`
+    let YOUTUBE_SEARCH=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${searchQuery}&key=AIzaSyCMrSg3nn-0q0KlPx0AJ7Q2l3VOwOT90oc`
     const data=await fetch(YOUTUBE_SEARCH)
     const json = await data.json();
    

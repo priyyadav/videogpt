@@ -38,6 +38,7 @@ const LiveChat = () => {
         })
       );
     }, 2000);
+    console.log("kokjj")
 
     return () => clearInterval(i);
   }, []);

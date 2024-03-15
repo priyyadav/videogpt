@@ -4,21 +4,23 @@ import { useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/AppSlice";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
-
+import "./sidebar.css"
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log("kokhh")
     dispatch(closeMenu());
   }, []);
   return (
-    <div className="flex flex-col w-full md:flex-row">
-      <div className="px-5 flex w-full">
-        <div className="">
+    <div className="flex flex-col w-full">
+      <div className="px-5 flex w-full mobile" >
+        <div className="w-full">
           <iframe
-            width="1200"
+            width="100%"
             height="600"
+          
             src={"https://www.youtube.com/embed/" + searchParams.get("v")}
             title="YouTube video player"
             frameBorder="0"
@@ -26,7 +28,7 @@ const WatchPage = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="w-full">
+        <div className="max-w-full max-w-290">
           <LiveChat />
         </div>
       </div>

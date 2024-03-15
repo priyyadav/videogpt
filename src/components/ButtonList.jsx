@@ -25,6 +25,7 @@ const ButtonList = () => {
       buttonContainerRef.current.scrollLeft += scrollOffset;
       setScrollLeft(buttonContainerRef.current.scrollLeft);
     }
+    console.log("llo")
   };
 
   return (

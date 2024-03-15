@@ -15,7 +15,7 @@ const Sidebar = () => {
   if (!isMenuOpen) return null;
 
   return (
-    <div className={`p-5 shadow-lg w-400 ${isMenuOpen ? "open" : ""}`}>
+    <div className={`p-5 shadow-lg sidebar ${isMenuOpen ? "open" : ""}`}>
       <div >
         {/* Close button */}
         <button className="text-gray-500 close" onClick={onClose}>
@@ -36,13 +36,11 @@ const Sidebar = () => {
         </button>
         {/* Optional: You can add a title/header here if needed */}
       </div>
-      <ul>
+      <ul className="w-full">
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li>
-          <Link to="/demo">Demo</Link>
-        </li>
+
         <li>Shorts</li>
         <li>Videos</li>
         <li>Live</li>

@@ -8,6 +8,7 @@ const VideoContainer = () => {
 
   useEffect(() => {
     getVideos();
+    console.log("koklll")
   }, []);
 
   const getVideos = async () => {

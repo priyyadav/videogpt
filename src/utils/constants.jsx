@@ -1,4 +1,4 @@
-const GOOGLE_API_KEY = "AIzaSyCgxhRLAeJzQTEBBIV8LUtPaf3JQAdzXIU";
+const GOOGLE_API_KEY = "AIzaSyCMrSg3nn-0q0KlPx0AJ7Q2l3VOwOT90oc";
 
 
 export const YOUTUBE_VIDEOS_API =

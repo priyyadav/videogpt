@@ -1,4 +1,7 @@
-
+.sidebar
+{
+    width: 290px !important;
+}
 .close
 {
     display: none;
@@ -25,7 +28,11 @@
         z-index: 1000; /* Ensure sidebar is above other content */
         display: block; /* Initially hide sidebar */
       }
-      
+      .mobile
+      {
+        display: flex;
+        flex-direction: column;
+      }
       
  
 }
