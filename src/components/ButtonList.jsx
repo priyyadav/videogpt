@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 
-const list = ["All", "Live", "Gaming","All", "Live", "Gaming","All", "Live", "Gaming","All", "Live", "Gaming"];
+const list = ["All", "Live", "Gaming","Music", "Sports", "Cricket"];
 
 const ButtonList = () => {
   const isMobileView = window.innerWidth < 768; // Adjust the breakpoint as needed
